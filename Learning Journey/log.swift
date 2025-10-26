@@ -7,7 +7,15 @@ enum LogState {
     case freezed
 }
 
+// Enum for the goal duration selector
+enum GoalDuration: String, CaseIterable {
+    case week = "Week"
+    case month = "Month"
+    case year = "Year"
+}
+
 struct log: View {
+    // NOTE: The custom colors (Ablack, Bgray, white, orange, blue) are assumed to be defined in your Asset Catalog.
     @State private var currentLogState: LogState = .unlogged
     @State private var daysLearned: Int = 0
     @State private var freezesLeft: Int = 1
@@ -61,13 +69,17 @@ struct log: View {
             .toolbarColorScheme(.dark, for: .navigationBar)
             .toolbarBackground(Color("Ablack"), for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
+            // UPDATED TOOLBAR: Two buttons for navigation
             .toolbar {
-                HStack(spacing: 16) {
-                    Button(action: { }) {
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    // 1. Calendar/History Button
+                    NavigationLink(destination: CalendarListView()) {
                         Image(systemName: "calendar")
                             .foregroundColor(Color("white"))
                     }
-                    Button(action: { }) {
+
+                    // 2. Learning Goal Button (Pencil icon)
+                    NavigationLink(destination: LearningGoalView()) {
                         Image(systemName: "pencil.and.outline")
                             .foregroundColor(Color("white"))
                     }
@@ -76,6 +88,113 @@ struct log: View {
         }
     }
 }
+
+// --- New View for Learning Goal Configuration ---
+struct LearningGoalView: View {
+    @State private var goalText: String = "Swift"
+    @State private var selectedDuration: GoalDuration = .month
+
+    var body: some View {
+        ZStack {
+            Color("Ablack").ignoresSafeArea()
+
+            VStack(alignment: .leading, spacing: 30) {
+                
+                // Goal Input
+                VStack(alignment: .leading) {
+                    Text("I want to learn")
+                        .font(.title3)
+                        .foregroundColor(Color("white").opacity(0.8))
+
+                    TextField("", text: $goalText)
+                        .font(.title2)
+                        .foregroundColor(Color("white"))
+                        .padding(.vertical, 8)
+                        .background(
+                            Rectangle()
+                                .fill(Color("Bgray").opacity(0.01)) // Invisible tap target
+                                .padding(.top, 30)
+                        )
+                    Divider().background(Color("white").opacity(0.5))
+                }
+                
+                // Duration Selector
+                VStack(alignment: .leading, spacing: 15) {
+                    Text("I want to learn it in a")
+                        .font(.title3)
+                        .foregroundColor(Color("white").opacity(0.8))
+
+                    HStack(spacing: 16) {
+                        ForEach(GoalDuration.allCases, id: \.self) { duration in
+                            Text(duration.rawValue)
+                                .font(.headline)
+                                .fontWeight(.semibold)
+                                .foregroundColor(selectedDuration == duration ? Color("Ablack") : Color("white"))
+                                .padding(.horizontal, 20)
+                                .padding(.vertical, 10)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .fill(selectedDuration == duration ? Color("orange") : Color("Bgray").opacity(0.5))
+                                )
+                                .onTapGesture {
+                                    selectedDuration = duration
+                                }
+                        }
+                    }
+                }
+                
+                Spacer()
+            }
+            .padding(.horizontal, 20)
+            .padding(.top, 30)
+        }
+        .navigationTitle("Learning Goal")
+        // Checkmark button in the navigation bar
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: { /* Action to save the goal */ }) {
+                    Image(systemName: "checkmark.circle.fill")
+                        .font(.title2)
+                        .foregroundColor(Color("orange"))
+                }
+            }
+        }
+        .toolbarColorScheme(.dark, for: .navigationBar)
+        .toolbarBackground(Color("Ablack"), for: .navigationBar)
+        .toolbarBackground(.visible, for: .navigationBar)
+    }
+}
+
+
+// --- Placeholder Views ---
+
+struct CalendarListView: View {
+    var body: some View {
+        ZStack {
+            Color("Ablack").ignoresSafeArea()
+            VStack(spacing: 20) {
+                Image(systemName: "list.bullet.clipboard.fill")
+                    .font(.largeTitle)
+                    .foregroundColor(Color("orange"))
+                Text("Activity History")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                Text("This is where the detailed log and history of your learning activity will be displayed.")
+                    .font(.body)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 40)
+            }
+            .foregroundColor(Color("white"))
+        }
+        .navigationTitle("History")
+        .toolbarColorScheme(.dark, for: .navigationBar)
+        .toolbarBackground(Color("Ablack"), for: .navigationBar)
+        .toolbarBackground(.visible, for: .navigationBar)
+    }
+}
+
+
+// --- Existing Component Views (Unchanged) ---
 
 struct CalendarView: View {
     let daysOfWeek = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"]

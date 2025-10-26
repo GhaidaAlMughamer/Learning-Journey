@@ -2,7 +2,8 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var selectedTime = "Week"
-    @State private var navigateToLog = false // ← navigation state
+    @State private var navigateToLog = false
+    @State private var learningTopic = ""
     let options = ["Week", "Month", "Year"]
 
     var body: some View {
@@ -11,6 +12,8 @@ struct ContentView: View {
                 Color("Ablack").ignoresSafeArea()
 
                 VStack(spacing: 32) {
+                    
+                    // 🔥 Frosted Glass Flame
                     ZStack {
                         Circle()
                             .fill(Color("Ablack").opacity(0.25))
@@ -20,7 +23,7 @@ struct ContentView: View {
                             )
                             .overlay(
                                 Circle()
-                                    .stroke(Color("white").opacity(0.2), lineWidth: 1)
+                                    .stroke(Color.white.opacity(0.2), lineWidth: 1)
                             )
                             .frame(width: 120, height: 120)
                             .shadow(color: Color("Ablack").opacity(0.6), radius: 8, x: 0, y: 2)
@@ -34,9 +37,10 @@ struct ContentView: View {
                     }
                     .padding(.top, 40)
 
+                    // 🧠 Onboarding Texts
                     VStack(alignment: .leading, spacing: 6) {
                         Text("Hello Learner")
-                            .font(.custom("SF Pro title Bold", size: 32))
+                            .font(.custom("SF Pro Display Bold", size: 32))
                             .foregroundColor(Color("white"))
 
                         Text("This app will help you learn everyday!")
@@ -48,7 +52,7 @@ struct ContentView: View {
                             .font(.custom("SF Pro Text Semibold", size: 24))
                             .foregroundColor(Color("white"))
 
-                        TextField("Enter your topic", text: .constant(""))
+                        TextField("Enter your topic", text: $learningTopic)
                             .padding(.vertical, 4)
                             .foregroundColor(Color("white"))
 
@@ -61,13 +65,14 @@ struct ContentView: View {
                             .padding(.top, 32)
                     }
 
+                    // 🕓 Time Duration Selector
                     HStack(spacing: 1) {
                         ForEach(options, id: \.self) { option in
                             Button {
                                 withAnimation { selectedTime = option }
                             } label: {
                                 Text(option)
-                                    .font(.custom("SF Pro Text bold", size: 15))
+                                    .font(.custom("SF Pro Text Bold", size: 15))
                                     .padding(.vertical, 16)
                                     .padding(.horizontal, 30)
                                     .background(
@@ -89,12 +94,12 @@ struct ContentView: View {
 
                     Spacer()
 
-                    // ✅ Navigation button to log page
+                    // 🚀 Start Learning Button
                     Button {
                         navigateToLog = true
                     } label: {
                         Text("Start learning")
-                            .font(.custom("SF Pro Text bold", size: 17))
+                            .font(.custom("SF Pro Text Bold", size: 17))
                             .foregroundColor(Color("white"))
                             .padding(.vertical, 14)
                             .frame(maxWidth: 180)
@@ -104,8 +109,9 @@ struct ContentView: View {
                     }
                     .padding(.horizontal, 24)
                     .padding(.bottom, 30)
+                    // ✅ Navigation destination to log page
                     .navigationDestination(isPresented: $navigateToLog) {
-                        log() // ← takes you to your Log page
+                        log()
                     }
                 }
                 .padding(.horizontal, 24)
@@ -113,10 +119,6 @@ struct ContentView: View {
             }
         }
     }
-}
-
-#Preview {
-    ContentView()
 }
 
 // MARK: - Frosted Blur Effect
@@ -127,3 +129,8 @@ struct VisualEffectBlur: UIViewRepresentable {
     }
     func updateUIView(_ uiView: UIVisualEffectView, context: Context) {}
 }
+
+#Preview {
+    ContentView()
+}
+
