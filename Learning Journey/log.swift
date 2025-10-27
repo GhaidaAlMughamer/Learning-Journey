@@ -1,5 +1,6 @@
 import SwiftUI
 import ElegantCalendar
+import FSCalendar // Import FSCalendar for the destination view (optional here but good practice)
 
 enum LogState {
     case unlogged
@@ -69,11 +70,11 @@ struct log: View {
             .toolbarColorScheme(.dark, for: .navigationBar)
             .toolbarBackground(Color("Ablack"), for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
-            // UPDATED TOOLBAR: Two buttons for navigation
+            // UPDATED TOOLBAR: Links to the new CalendarPageView
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    // 1. Calendar/History Button
-                    NavigationLink(destination: CalendarListView()) {
+                    // 1. Calendar/History Button -> NOW LINKS TO CalendarPageView
+                    NavigationLink(destination: CalendarPageView()) {
                         Image(systemName: "calendar")
                             .foregroundColor(Color("white"))
                     }
@@ -89,7 +90,8 @@ struct log: View {
     }
 }
 
-// --- New View for Learning Goal Configuration ---
+// --- Component Views (Included for completeness) ---
+
 struct LearningGoalView: View {
     @State private var goalText: String = "Swift"
     @State private var selectedDuration: GoalDuration = .month
@@ -99,7 +101,6 @@ struct LearningGoalView: View {
             Color("Ablack").ignoresSafeArea()
 
             VStack(alignment: .leading, spacing: 30) {
-                
                 // Goal Input
                 VStack(alignment: .leading) {
                     Text("I want to learn")
@@ -112,7 +113,7 @@ struct LearningGoalView: View {
                         .padding(.vertical, 8)
                         .background(
                             Rectangle()
-                                .fill(Color("Bgray").opacity(0.01)) // Invisible tap target
+                                .fill(Color("Bgray").opacity(0.01))
                                 .padding(.top, 30)
                         )
                     Divider().background(Color("white").opacity(0.5))
@@ -149,7 +150,6 @@ struct LearningGoalView: View {
             .padding(.top, 30)
         }
         .navigationTitle("Learning Goal")
-        // Checkmark button in the navigation bar
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: { /* Action to save the goal */ }) {
@@ -165,37 +165,6 @@ struct LearningGoalView: View {
     }
 }
 
-
-// --- Placeholder Views ---
-
-struct CalendarListView: View {
-    var body: some View {
-        ZStack {
-            Color("Ablack").ignoresSafeArea()
-            VStack(spacing: 20) {
-                Image(systemName: "list.bullet.clipboard.fill")
-                    .font(.largeTitle)
-                    .foregroundColor(Color("orange"))
-                Text("Activity History")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                Text("This is where the detailed log and history of your learning activity will be displayed.")
-                    .font(.body)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal, 40)
-            }
-            .foregroundColor(Color("white"))
-        }
-        .navigationTitle("History")
-        .toolbarColorScheme(.dark, for: .navigationBar)
-        .toolbarBackground(Color("Ablack"), for: .navigationBar)
-        .toolbarBackground(.visible, for: .navigationBar)
-    }
-}
-
-
-// --- Existing Component Views (Unchanged) ---
-
 struct CalendarView: View {
     let daysOfWeek = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"]
 
@@ -204,7 +173,7 @@ struct CalendarView: View {
     }
 
     private var mockDates: [Int] {
-        let range = 20...26
+        let range = 23...29
         return Array(range)
     }
 

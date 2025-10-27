@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		889F8F602EAF942000751145 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 889F8F5F2EAF942000751145 /* FSCalendar */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		884935AD2EA5063B00B5B715 /* Learning Journey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Learning Journey.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -23,6 +27,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				889F8F602EAF942000751145 /* FSCalendar in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +70,7 @@
 			);
 			name = "Learning Journey";
 			packageProductDependencies = (
+				889F8F5F2EAF942000751145 /* FSCalendar */,
 			);
 			productName = "Learning Journey";
 			productReference = 884935AD2EA5063B00B5B715 /* Learning Journey.app */;
@@ -94,6 +100,9 @@
 			);
 			mainGroup = 884935A42EA5063B00B5B715;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				889F8F5E2EAF942000751145 /* XCRemoteSwiftPackageReference "FSCalendar" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 884935AE2EA5063B00B5B715 /* Products */;
 			projectDirPath = "";
@@ -328,6 +337,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		889F8F5E2EAF942000751145 /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/WenchaoD/FSCalendar";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.8.4;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		889F8F5F2EAF942000751145 /* FSCalendar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 889F8F5E2EAF942000751145 /* XCRemoteSwiftPackageReference "FSCalendar" */;
+			productName = FSCalendar;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 884935A52EA5063B00B5B715 /* Project object */;
 }
