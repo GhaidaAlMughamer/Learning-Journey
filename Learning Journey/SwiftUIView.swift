@@ -171,4 +171,3 @@ struct FSCalendarRepresentable: UIViewRepresentable {
         }
     }
 }
-#Predicate( )
