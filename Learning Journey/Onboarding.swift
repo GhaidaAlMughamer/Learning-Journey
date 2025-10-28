@@ -27,7 +27,6 @@ struct ContentView: View {
                             )
                             .frame(width: 120, height: 120)
                             .shadow(color: Color("Ablack").opacity(0.6), radius: 8, x: 0, y: 2)
-                            .shadow(color: Color("orange").opacity(0.3), radius: 15, x: 0, y: 0)
 
                         Image(systemName: "flame.fill")
                             .resizable()
@@ -98,6 +97,7 @@ struct ContentView: View {
                     Button {
                         navigateToLog = true
                     } label: {
+                        
                         Text("Start learning")
                             .font(.custom("SF Pro Text Bold", size: 17))
                             .foregroundColor(Color("white"))
